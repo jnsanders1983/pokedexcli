@@ -1,1 +1,3 @@
+module github.com/jnsanders1983/pokedexcli
 
+go 1.27.1
