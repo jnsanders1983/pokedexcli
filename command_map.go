@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/jnsanders1983/pokedexcli/internal/pokeapi"
 )
 
 type LocationAreaResponse struct {
@@ -26,7 +28,7 @@ func commandMap(c *config, args []string) error {
 	if c.locationAreaResponse.Next != nil {
 		mapURL = *c.locationAreaResponse.Next
 	} else {
-		mapURL = PokeAPIBaseURL + PokeAPIPath + PokeAPILocationAreas
+		mapURL = pokeapi.PokeAPIBaseURL + pokeapi.PokeAPIPath + pokeapi.PokeAPILocationAreas
 	}
 
 	cachedBody, ok := c.cache.Get(mapURL)

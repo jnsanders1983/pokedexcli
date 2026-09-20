@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/jnsanders1983/pokedexcli/internal/pokeapi"
 )
 
 type ExploreResponse struct {
@@ -22,7 +24,7 @@ func commandExplore(c *config, args []string) error {
 	}
 	areaName := args[0]
 
-	mapURL := PokeAPIBaseURL + PokeAPIPath + PokeAPILocationAreas + areaName
+	mapURL := pokeapi.PokeAPIBaseURL + pokeapi.PokeAPIPath + pokeapi.PokeAPILocationAreas + areaName
 
 	var body []byte
 
