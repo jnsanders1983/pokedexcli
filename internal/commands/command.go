@@ -1,6 +1,9 @@
 package commands
 
-import "github.com/jnsanders1983/pokedexcli/internal/pokecache"
+import (
+	"github.com/jnsanders1983/pokedexcli/internal/pokeapi"
+	"github.com/jnsanders1983/pokedexcli/internal/pokecache"
+)
 
 type Command struct {
 	Name        string
@@ -12,6 +15,7 @@ type Config struct {
 	Commands             map[string]Command
 	LocationAreaResponse LocationAreaResponse
 	Cache                *pokecache.Cache
+	Pokedex              map[string]pokeapi.Pokemon
 }
 
 func NewConfig(cache *pokecache.Cache) *Config {
@@ -46,8 +50,14 @@ func NewConfig(cache *pokecache.Cache) *Config {
 				Description: "Explore a specific location area by name",
 				Callback:    commandExplore,
 			},
+			"catch": {
+				Name:        "catch",
+				Description: "Attempt to catch a Pokemon by name",
+				Callback:    commandCatch,
+			},
 		},
 		LocationAreaResponse: LocationAreaResponse{},
 		Cache:                cache,
+		Pokedex:              make(map[string]pokeapi.Pokemon),
 	}
 }

@@ -7,5 +7,5 @@ BINARY="$ROOT_DIR/bin/pokedexcli"
 
 cd "$ROOT_DIR"
 mkdir -p "$ROOT_DIR/bin"
-go build -o "$BINARY" ./cmd/pokedexcli
+go build -o "$BINARY" .
 printf 'Built %s\n' "$BINARY"

@@ -11,4 +11,4 @@ if ! command -v dlv >/dev/null 2>&1; then
 fi
 
 cd "$ROOT_DIR"
-dlv debug ./cmd/pokedexcli -- "$@"
+dlv debug . -- "$@"
