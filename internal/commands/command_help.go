@@ -1,11 +1,11 @@
-package main
+package commands
 
 import (
 	"fmt"
 	"strings"
 )
 
-func commandHelp(c *config, args []string) error {
+func commandHelp(c *Config, args []string) error {
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Println("Usage:")
 	fmt.Println()
@@ -13,9 +13,9 @@ func commandHelp(c *config, args []string) error {
 	const nameWidth = 8
 	const descWidth = 50
 
-	for _, cmd := range c.commands {
-		lines := wrapText(cmd.description, descWidth)
-		fmt.Printf("%-*s%s\n", nameWidth, cmd.name, lines[0])
+	for _, cmd := range c.Commands {
+		lines := wrapText(cmd.Description, descWidth)
+		fmt.Printf("%-*s%s\n", nameWidth, cmd.Name, lines[0])
 		for _, line := range lines[1:] {
 			fmt.Printf("%-*s%s\n", nameWidth, "", line)
 		}

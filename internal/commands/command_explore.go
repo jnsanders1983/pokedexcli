@@ -1,4 +1,4 @@
-package main
+package commands
 
 import (
 	"encoding/json"
@@ -18,7 +18,7 @@ type ExploreResponse struct {
 	} `json:"pokemon_encounters"`
 }
 
-func commandExplore(c *config, args []string) error {
+func commandExplore(c *Config, args []string) error {
 	if len(args) == 0 {
 		return errors.New("you must provide a location area name (e.g., explore pastoria-city-area)")
 	}
@@ -28,7 +28,7 @@ func commandExplore(c *config, args []string) error {
 
 	var body []byte
 
-	cachedBody, ok := c.cache.Get(mapURL)
+	cachedBody, ok := c.Cache.Get(mapURL)
 	if !ok {
 		fmt.Printf("Exploring %s...\n", areaName)
 		resp, err := http.Get(mapURL)
@@ -50,7 +50,7 @@ func commandExplore(c *config, args []string) error {
 			return err
 		}
 
-		c.cache.Add(mapURL, body)
+		c.Cache.Add(mapURL, body)
 	} else {
 		fmt.Printf("Exploring %s (from cache)...\n", areaName)
 		body = cachedBody

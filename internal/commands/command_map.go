@@ -1,4 +1,4 @@
-package main
+package commands
 
 import (
 	"encoding/json"
@@ -21,17 +21,17 @@ type LocationArea struct {
 	URL  string `json:"url"`
 }
 
-func commandMap(c *config, args []string) error {
+func commandMap(c *Config, args []string) error {
 	var mapURL string
 	var body []byte
 
-	if c.locationAreaResponse.Next != nil {
-		mapURL = *c.locationAreaResponse.Next
+	if c.LocationAreaResponse.Next != nil {
+		mapURL = *c.LocationAreaResponse.Next
 	} else {
 		mapURL = pokeapi.PokeAPIBaseURL + pokeapi.PokeAPIPath + pokeapi.PokeAPILocationAreas
 	}
 
-	cachedBody, ok := c.cache.Get(mapURL)
+	cachedBody, ok := c.Cache.Get(mapURL)
 	if !ok {
 		resp, err := http.Get(mapURL)
 		if err != nil {
@@ -47,33 +47,33 @@ func commandMap(c *config, args []string) error {
 		if err != nil {
 			return err
 		}
-		c.cache.Add(mapURL, body)
+		c.Cache.Add(mapURL, body)
 	} else {
 		fmt.Println("Cache hit for URL:", mapURL)
 		body = cachedBody
 	}
 
-	err := json.Unmarshal(body, &c.locationAreaResponse)
+	err := json.Unmarshal(body, &c.LocationAreaResponse)
 	if err != nil {
 		return err
 	}
 
-	for _, locationArea := range c.locationAreaResponse.Results {
+	for _, locationArea := range c.LocationAreaResponse.Results {
 		fmt.Println(locationArea.Name)
 	}
 	return nil
 }
 
-func commandMapBack(c *config, args []string) error {
+func commandMapBack(c *Config, args []string) error {
 	var mapURL string
 	var body []byte
 
-	if c.locationAreaResponse.Previous == nil {
+	if c.LocationAreaResponse.Previous == nil {
 		return errors.New("you're on the first page")
 	}
-	mapURL = *c.locationAreaResponse.Previous
+	mapURL = *c.LocationAreaResponse.Previous
 
-	cachedBody, ok := c.cache.Get(mapURL)
+	cachedBody, ok := c.Cache.Get(mapURL)
 	if !ok {
 		resp, err := http.Get(mapURL)
 		if err != nil {
@@ -89,18 +89,18 @@ func commandMapBack(c *config, args []string) error {
 		if err != nil {
 			return err
 		}
-		c.cache.Add(mapURL, body)
+		c.Cache.Add(mapURL, body)
 	} else {
 		fmt.Println("Cache hit for URL:", mapURL)
 		body = cachedBody
 	}
 
-	err := json.Unmarshal(body, &c.locationAreaResponse)
+	err := json.Unmarshal(body, &c.LocationAreaResponse)
 	if err != nil {
 		return err
 	}
 
-	for _, locationArea := range c.locationAreaResponse.Results {
+	for _, locationArea := range c.LocationAreaResponse.Results {
 		fmt.Println(locationArea.Name)
 	}
 	return nil
