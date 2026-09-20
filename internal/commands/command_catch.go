@@ -50,6 +50,7 @@ func commandCatch(c *Config, args []string) error {
 	if rand.Float64() < chance {
 		c.Pokedex[pokemon.Name] = pokemon
 		fmt.Printf("%s was caught!\n", pokemon.Name)
+		fmt.Println("You may now inspect it with the inspect command.")
 		return nil
 	}
 
