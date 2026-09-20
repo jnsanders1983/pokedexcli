@@ -16,12 +16,24 @@ type Pokemon struct {
 	Moves                  []MoveSlot         `json:"moves"`
 	Species                NamedAPIResource   `json:"species"`
 	Sprites                Sprites            `json:"sprites"`
+	Stats                  []Stat             `json:"stats"`
+	Types                  []Type             `json:"types"`
 }
 
 // NamedAPIResource is a reusable component for name/url pairs.
 type NamedAPIResource struct {
 	Name string `json:"name"`
 	URL  string `json:"url"`
+}
+
+type Stat struct {
+	BaseStat int              `json:"base_stat"`
+	Stat     NamedAPIResource `json:"stat"`
+}
+
+type Type struct {
+	Slot int              `json:"slot"`
+	Type NamedAPIResource `json:"type"`
 }
 
 type AbilitySlot struct {

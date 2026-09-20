@@ -55,6 +55,11 @@ func NewConfig(cache *pokecache.Cache) *Config {
 				Description: "Attempt to catch a Pokemon by name",
 				Callback:    commandCatch,
 			},
+			"inspect": {
+				Name:        "inspect",
+				Description: "Inspect a caught Pokemon",
+				Callback:    commandInspect,
+			},
 		},
 		LocationAreaResponse: LocationAreaResponse{},
 		Cache:                cache,
